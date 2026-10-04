@@ -2,6 +2,11 @@ pipeline {
 
     agent any
 
+    environment {
+        DOCKER_IMAGE = 'adityasondekar/demo-app'
+        DOCKER_TAG = "${BUILD_NUMBER}"
+    }
+
     stages {
 
         stage('Checkout') {
@@ -14,20 +19,57 @@ pipeline {
         stage('Build') {
             steps {
                 echo 'Building Docker image...'
-                sh 'docker build -t demo-app:latest .'
+
+                sh '''
+                    docker build \
+                        -t ${DOCKER_IMAGE}:${DOCKER_TAG} \
+                        -t ${DOCKER_IMAGE}:latest \
+                        .
+                '''
             }
         }
 
         stage('Test') {
             steps {
                 echo 'Testing Docker image...'
-                sh 'docker image inspect demo-app:latest'
+
+                sh '''
+                    docker image inspect ${DOCKER_IMAGE}:${DOCKER_TAG}
+                '''
+            }
+        }
+
+        stage('Push to Docker Hub') {
+            steps {
+
+                echo 'Logging into Docker Hub and pushing image...'
+
+                withCredentials([
+                    usernamePassword(
+                        credentialsId: 'dockerhub-credentials',
+                        usernameVariable: 'DOCKER_USERNAME',
+                        passwordVariable: 'DOCKER_PASSWORD'
+                    )
+                ]) {
+
+                    sh '''
+                        echo "$DOCKER_PASSWORD" | docker login \
+                            --username "$DOCKER_USERNAME" \
+                            --password-stdin
+
+                        docker push ${DOCKER_IMAGE}:${DOCKER_TAG}
+                        docker push ${DOCKER_IMAGE}:latest
+
+                        docker logout
+                    '''
+                }
             }
         }
 
         stage('Deploy') {
             steps {
-                echo 'Deploying application...'
+
+                echo 'Deploying application on EC2...'
 
                 sh '''
                     docker stop demo-app || true
@@ -36,15 +78,17 @@ pipeline {
                     docker run -d \
                         --name demo-app \
                         -p 5000:5000 \
-                        demo-app:latest
+                        ${DOCKER_IMAGE}:${DOCKER_TAG}
                 '''
             }
         }
     }
 
     post {
+
         success {
-            echo 'Deployment completed successfully!'
+            echo "Pipeline completed successfully!"
+            echo "Docker image: ${DOCKER_IMAGE}:${DOCKER_TAG}"
         }
 
         failure {

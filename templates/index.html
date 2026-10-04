@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>DevOps CI/CD Dashboard</title>
+
+    <link
+        rel="stylesheet"
+        href="{{ url_for('static', filename='style.css') }}"
+    >
+</head>
+
+<body>
+
+    <!-- Animated background -->
+    <div class="background">
+        <div class="orb orb-one"></div>
+        <div class="orb orb-two"></div>
+        <div class="orb orb-three"></div>
+    </div>
+
+    <!-- Navigation -->
+    <nav class="navbar">
+
+        <div class="logo">
+            <span class="logo-icon">⚡</span>
+            DevOpsFlow
+        </div>
+
+        <div class="nav-status">
+            <span class="status-dot"></span>
+            Pipeline Online
+        </div>
+
+    </nav>
+
+
+    <!-- Hero Section -->
+    <main>
+
+        <section class="hero">
+
+            <div class="hero-content">
+
+                <div class="badge">
+                    🚀 Automated CI/CD Pipeline
+                </div>
+
+                <h1>
+                    From
+                    <span>Git Push</span>
+                    to
+                    <span>Production</span>
+                </h1>
+
+                <p class="hero-text">
+                    A fully automated DevOps pipeline powered by
+                    GitHub, Jenkins, Docker and AWS EC2.
+                </p>
+
+                <div class="hero-buttons">
+
+                    <a href="#pipeline" class="primary-btn">
+                        Explore Pipeline
+                        <span>→</span>
+                    </a>
+
+                    <a href="/health" class="secondary-btn">
+                        Health Check
+                    </a>
+
+                </div>
+
+            </div>
+
+
+            <!-- Pipeline visual -->
+            <div class="pipeline-preview">
+
+                <div class="pipeline-header">
+                    <span>LIVE PIPELINE</span>
+                    <span class="live">● LIVE</span>
+                </div>
+
+                <div class="pipeline-line"></div>
+
+                <div class="pipeline-node">
+                    <div class="node-icon">⌘</div>
+                    <div>
+                        <strong>GitHub</strong>
+                        <small>Code Push</small>
+                    </div>
+                    <span class="check">✓</span>
+                </div>
+
+                <div class="pipeline-node">
+                    <div class="node-icon">⚙</div>
+                    <div>
+                        <strong>Jenkins</strong>
+                        <small>Build & Test</small>
+                    </div>
+                    <span class="check">✓</span>
+                </div>
+
+                <div class="pipeline-node">
+                    <div class="node-icon">🐳</div>
+                    <div>
+                        <strong>Docker</strong>
+                        <small>Container Build</small>
+                    </div>
+                    <span class="check">✓</span>
+                </div>
+
+                <div class="pipeline-node">
+                    <div class="node-icon">☁</div>
+                    <div>
+                        <strong>AWS EC2</strong>
+                        <small>Deployment</small>
+                    </div>
+                    <span class="check">✓</span>
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- Pipeline Section -->
+        <section id="pipeline" class="section">
+
+            <div class="section-heading">
+
+                <span class="section-label">
+                    HOW IT WORKS
+                </span>
+
+                <h2>
+                    One push.
+                    <span>Complete automation.</span>
+                </h2>
+
+                <p>
+                    Every code change travels through the pipeline
+                    automatically.
+                </p>
+
+            </div>
+
+
+            <div class="flow">
+
+                <div class="flow-card">
+                    <div class="flow-number">01</div>
+                    <div class="flow-icon">⌘</div>
+                    <h3>GitHub</h3>
+                    <p>
+                        Developer pushes new code to the repository.
+                    </p>
+                </div>
+
+
+                <div class="flow-arrow">→</div>
+
+
+                <div class="flow-card">
+                    <div class="flow-number">02</div>
+                    <div class="flow-icon">⚙</div>
+                    <h3>Jenkins</h3>
+                    <p>
+                        Webhook automatically triggers the CI/CD pipeline.
+                    </p>
+                </div>
+
+
+                <div class="flow-arrow">→</div>
+
+
+                <div class="flow-card">
+                    <div class="flow-number">03</div>
+                    <div class="flow-icon">🐳</div>
+                    <h3>Docker</h3>
+                    <p>
+                        Jenkins builds the application into a container image.
+                    </p>
+                </div>
+
+
+                <div class="flow-arrow">→</div>
+
+
+                <div class="flow-card">
+                    <div class="flow-number">04</div>
+                    <div class="flow-icon">☁</div>
+                    <h3>Deployment</h3>
+                    <p>
+                        The latest container is deployed on AWS EC2.
+                    </p>
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- Stats -->
+        <section class="stats">
+
+            <div class="stat">
+                <strong>100%</strong>
+                <span>Automated</span>
+            </div>
+
+            <div class="stat">
+                <strong>24/7</strong>
+                <span>Deployment Ready</span>
+            </div>
+
+            <div class="stat">
+                <strong>4</strong>
+                <span>Pipeline Stages</span>
+            </div>
+
+            <div class="stat">
+                <strong>∞</strong>
+                <span>Deployments</span>
+            </div>
+
+        </section>
+
+    </main>
+
+
+    <footer>
+
+        <p>
+            Built with Flask • Docker • Jenkins • AWS EC2
+        </p>
+
+        <div class="footer-status">
+            <span class="status-dot"></span>
+            System Operational
+        </div>
+
+    </footer>
+
+
+    <script src="{{ url_for('static', filename='script.js') }}"></script>
+
+</body>
+</html>
