@@ -1,6 +1,8 @@
 pipeline {
 
-    agent any
+    agent {
+	label 'dev'
+	}
 
     environment {
         DOCKER_IMAGE = 'adityasondekar/demo-app'
