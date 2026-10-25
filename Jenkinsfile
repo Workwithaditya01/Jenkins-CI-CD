@@ -21,10 +21,20 @@ pipeline {
             }
         }
 
-        stage('Finish') {
+        stage('Push-To-DockerHub') {
             steps {
-                echo 'Jenkins pipeline completed successfully!'
+                echo "Credentials Checking"
+                withCredentails([usernamePassword(
+                    credentailsID:"dockerhubcreds",
+                    passowordVariable:"dockerhubpass",
+                    usernameVariable:"dockerhubuser"
+                    )])
             }
+
+            sh "docker login -u ${env.dockerhubuser} -p ${env.dockerhubpass}"
+            sh "docker image tag two-tier flask-app.${env.dockerhubuser}/two-tier-flask-app"
+            sh "docker push ${env.dockerhubuser}/two-tier-flask-app:latest"
+
         }
     }
 }
